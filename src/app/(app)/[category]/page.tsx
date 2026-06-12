@@ -1,13 +1,13 @@
 import { notFound } from "next/navigation";
 import { Card } from "@/components/ui/card";
-import { Leaf, ArrowLeft, Car, Utensils, ShoppingBag, Zap, Lightbulb, TrendingDown } from "lucide-react";
+import { ArrowLeft, Car, Utensils, ShoppingBag, Zap, Lightbulb, TrendingDown } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 const validCategories = ["transportation", "nutrition", "shopping", "lifestyle"];
 
 const categoryData: Record<string, {
-  icon: any;
+  icon: React.ElementType;
   color: string;
   bgColor: string;
   stats: { label: string; value: string }[];

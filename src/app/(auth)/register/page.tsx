@@ -34,16 +34,18 @@ export default function RegisterPage() {
           <form action={async (formData) => { await registerUser(formData); }} className="space-y-6">
             <div className="space-y-4">
               <div className="space-y-2">
-                <label className="text-xs font-bold text-[#86868B] uppercase tracking-widest px-1">Full name</label>
+                <label htmlFor="name" className="text-xs font-bold text-[#86868B] uppercase tracking-widest px-1">Full name</label>
                 <Input 
+                  id="name"
                   name="name"
                   placeholder="Alex Rivet" 
                   className="h-14 rounded-2xl bg-slate-50 border-none px-6 text-lg font-medium focus-visible:ring-2 focus-visible:ring-black"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-bold text-[#86868B] uppercase tracking-widest px-1">Email address</label>
+                <label htmlFor="email" className="text-xs font-bold text-[#86868B] uppercase tracking-widest px-1">Email address</label>
                 <Input 
+                  id="email"
                   name="email"
                   type="email" 
                   required
@@ -52,8 +54,9 @@ export default function RegisterPage() {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-bold text-[#86868B] uppercase tracking-widest px-1">Password</label>
+                <label htmlFor="password" className="text-xs font-bold text-[#86868B] uppercase tracking-widest px-1">Password</label>
                 <Input 
+                  id="password"
                   name="password"
                   type="password" 
                   required

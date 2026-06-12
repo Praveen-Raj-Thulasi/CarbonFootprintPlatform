@@ -21,13 +21,17 @@ interface PassportClientProps {
     email: string;
     _id?: string;
   };
-  stats: any;
+  stats: {
+    sustainabilityScore?: number;
+    currentFootprint?: number;
+    [key: string]: unknown;
+  };
 }
 
 export default function PassportClient({ user, stats }: PassportClientProps) {
   // Use real data to derive some dummy-like achievements for the passport if impactMetrics is not populated
-  const trees = Math.floor(stats.sustainabilityScore / 5) || 12;
-  const km = Math.floor((10 - stats.currentFootprint) * 100) || 450;
+  const trees = Math.floor((stats.sustainabilityScore || 0) / 5) || 12;
+  const km = Math.floor((10 - (stats.currentFootprint || 0)) * 100) || 450;
   
   const achievements = [
     { icon: TreePine, label: `${trees} Trees Saved`, color: "text-emerald-500" },

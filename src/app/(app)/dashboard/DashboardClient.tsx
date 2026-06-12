@@ -50,7 +50,7 @@ export default function DashboardClient({ user, stats }: DashboardClientProps) {
             Verified Climate Twin • {user.name}
           </Badge>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-[#1D1D1F] mb-6">
-            You're doing great, <br />
+            You&apos;re doing great, <br />
             but your twin is growing.
           </h1>
           <p className="text-xl text-[#86868B] max-w-2xl mx-auto font-medium leading-relaxed">
@@ -80,7 +80,7 @@ export default function DashboardClient({ user, stats }: DashboardClientProps) {
               </div>
               <h2 className="text-4xl font-bold tracking-tight text-[#1D1D1F]">The 5-Year Trajectory.</h2>
               <p className="text-lg text-[#86868B] font-medium leading-relaxed">
-                We've analyzed your utility bills, travel patterns, and shopping habits to create a high-fidelity replica of your environmental impact path.
+                We&apos;ve analyzed your utility bills, travel patterns, and shopping habits to create a high-fidelity replica of your environmental impact path.
               </p>
               <Link href="/simulator">
                 <Button variant="ghost" className="p-0 text-[#06c] hover:text-[#06c] hover:bg-transparent font-bold text-lg group">

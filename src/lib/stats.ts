@@ -68,7 +68,7 @@ export async function getPlatformStats() {
       { label: "Trees Saved", value: treesSaved.toFixed(1), unit: "M" },
       { label: "Insights Delivered", value: insightsDelivered.toString(), unit: "M+" },
     ];
-  } catch (error) {
+  } catch {
     // Fallback for build-time prerendering or DB connection issues
     return [
       { label: "CO₂ Reduced", value: "12,400", unit: "Tons" },

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,8 +34,9 @@ export default function LoginPage() {
           <form action={async (formData) => { await loginUser(formData); }} className="space-y-6">
             <div className="space-y-4">
               <div className="space-y-2">
-                <label className="text-xs font-bold text-[#86868B] uppercase tracking-widest px-1">Email address</label>
+                <label htmlFor="email" className="text-xs font-bold text-[#86868B] uppercase tracking-widest px-1">Email address</label>
                 <Input 
+                  id="email"
                   name="email"
                   type="email" 
                   required
@@ -45,8 +45,9 @@ export default function LoginPage() {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-bold text-[#86868B] uppercase tracking-widest px-1">Password</label>
+                <label htmlFor="password" className="text-xs font-bold text-[#86868B] uppercase tracking-widest px-1">Password</label>
                 <Input 
+                  id="password"
                   name="password"
                   type="password" 
                   required
@@ -62,7 +63,7 @@ export default function LoginPage() {
             </Button>
 
             <p className="text-center text-sm font-medium text-[#86868B] pt-4">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link href="/register" className="text-black font-bold hover:underline">Create one</Link>
             </p>
           </form>

@@ -46,8 +46,8 @@ export async function chatWithAI(messages: { role: "user" | "model"; content: st
     }
 
     return reply;
-  } catch (error: any) {
-    const message = error?.message || String(error);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
     console.error("Groq Error:", message);
 
     // Surface a more helpful error for API key / model issues

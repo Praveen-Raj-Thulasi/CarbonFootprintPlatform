@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Sparkles, User, Bot, Loader2, ArrowRight } from "lucide-react";
+import { Sparkles, User, Loader2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -98,11 +98,13 @@ export default function AdvisorPage() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                 placeholder="Message CarbonIQ..."
+                aria-label="Message CarbonIQ..."
                 className="flex-1 bg-transparent border-none focus-visible:ring-0 text-lg font-medium px-6 h-14"
               />
               <Button 
                 onClick={handleSend}
                 disabled={loading || !input.trim()}
+                aria-label="Send Message"
                 className="w-12 h-12 rounded-full bg-black hover:bg-zinc-800 text-white shrink-0"
               >
                 <ArrowRight className="w-5 h-5" />

@@ -4,7 +4,7 @@ const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || "default_secret_for_dev_only"
 );
 
-export async function signJWT(payload: any) {
+export async function signJWT(payload: Record<string, unknown>) {
   return await new jose.SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
@@ -16,7 +16,7 @@ export async function verifyJWT(token: string) {
   try {
     const { payload } = await jose.jwtVerify(token, JWT_SECRET);
     return payload;
-  } catch (err) {
+  } catch {
     return null;
   }
 }

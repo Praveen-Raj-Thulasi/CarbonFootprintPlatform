@@ -1,19 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+
 import { Card } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
-import { 
-  Car, 
-  Plane, 
-  Utensils, 
+import {
   TreePine, 
-  DollarSign, 
-  TrendingDown,
   ArrowRight,
   Zap,
+  Lightbulb,
   CheckCircle2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -24,10 +20,15 @@ export default function SimulatorPage() {
   const [commute, setCommute] = useState(40); // km/day
   const [evMode, setEvMode] = useState(false);
   const [diet, setDiet] = useState(50); // 0: Vegan, 50: Flexi, 100: Heavy Meat
+  const [energyBill, setEnergyBill] = useState(150); // $/month
+  const [renewable, setRenewable] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const saved = (commute * 365 * (evMode ? 0.15 : 0)) + (diet * 2.5);
-  const moneySaved = (commute * 365 * (evMode ? 0.13 : 0));
+  const energyCarbonSaved = renewable ? (energyBill * 12 * 0.4) : 0;
+  const energyMoneySaved = renewable ? (energyBill * 12 * 0.15) : 0;
+
+  const saved = (commute * 365 * (evMode ? 0.15 : 0)) + (diet * 2.5) + energyCarbonSaved;
+  const moneySaved = (commute * 365 * (evMode ? 0.13 : 0)) + energyMoneySaved;
   const trees = Math.floor(saved / 20);
 
   const handleApply = async () => {
@@ -57,7 +58,7 @@ export default function SimulatorPage() {
         ]
       });
       toast.success("Lifestyle choices applied to your Climate Twin!");
-    } catch (error) {
+    } catch {
       toast.error("Failed to update stats.");
     } finally {
       setLoading(false);
@@ -102,7 +103,7 @@ export default function SimulatorPage() {
                 </div>
                 <span className="font-bold text-[#1D1D1F]">Electric Vehicle</span>
               </div>
-              <Switch checked={evMode} onCheckedChange={setEvMode} className="data-[state=checked]:bg-black" />
+              <Switch aria-label="Toggle Electric Vehicle" checked={evMode} onCheckedChange={setEvMode} className="data-[state=checked]:bg-black" />
             </div>
           </div>
 
@@ -119,6 +120,36 @@ export default function SimulatorPage() {
               max={100} 
               className="[&_.relative]:bg-slate-100 [&_.absolute]:bg-black"
             />
+          </div>
+
+          <div className="space-y-8 pt-12 border-t border-slate-50">
+            <div className="flex items-center justify-between">
+               <h3 className="text-2xl font-bold tracking-tight text-[#1D1D1F]">Home Energy</h3>
+               <span className="text-sm font-bold text-amber-500">{renewable ? "100% Renewable" : "Standard Grid"}</span>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="flex justify-between text-sm font-bold text-[#86868B] uppercase tracking-widest">
+                <span>Monthly Bill (EB)</span>
+                <span>${energyBill}</span>
+              </div>
+              <Slider 
+                value={[energyBill]} 
+                onValueChange={(val) => setEnergyBill(Array.isArray(val) ? val[0] : val)} 
+                max={600} 
+                className="[&_.relative]:bg-slate-100 [&_.absolute]:bg-black"
+              />
+            </div>
+
+            <div className="flex items-center justify-between p-6 rounded-3xl bg-slate-50">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm">
+                  <Lightbulb className="w-5 h-5 text-amber-500" />
+                </div>
+                <span className="font-bold text-[#1D1D1F]">Renewable Provider</span>
+              </div>
+              <Switch aria-label="Toggle Renewable Energy Provider" checked={renewable} onCheckedChange={setRenewable} className="data-[state=checked]:bg-black" />
+            </div>
           </div>
         </Card>
 
@@ -154,6 +185,7 @@ export default function SimulatorPage() {
                 onClick={handleApply}
                 disabled={loading}
                 size="icon" 
+                aria-label="Apply to Climate Twin"
                 className="w-16 h-16 rounded-full bg-black hover:bg-zinc-800 text-white"
               >
                 {loading ? <CheckCircle2 className="w-6 h-6 animate-pulse" /> : <ArrowRight className="w-6 h-6" />}

@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { 
   AreaChart, 
   Area, 
@@ -26,9 +25,11 @@ const generateData = (reduction = 0) => {
 };
 
 export function InteractiveDemo() {
-  const [reduction, setReduction] = useState(0);
-  const [data, setData] = useState(generateData(0));
   const [step, setStep] = useState(0);
+
+  const reductionMap = [0, 50, 150, 250];
+  const reduction = reductionMap[step] || 0;
+  const data = generateData(reduction);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -36,17 +37,6 @@ export function InteractiveDemo() {
     }, 4000);
     return () => clearInterval(timer);
   }, []);
-
-  useEffect(() => {
-    if (step === 0) setReduction(0);
-    if (step === 1) setReduction(50);
-    if (step === 2) setReduction(150);
-    if (step === 3) setReduction(250);
-  }, [step]);
-
-  useEffect(() => {
-    setData(generateData(reduction));
-  }, [reduction]);
 
   const steps = [
     { label: "Baseline", color: "bg-slate-400" },
