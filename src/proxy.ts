@@ -24,7 +24,7 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const ip = request.ip || request.headers.get("x-forwarded-for") || "127.0.0.1";
   
   if (!checkRateLimit(ip)) {
