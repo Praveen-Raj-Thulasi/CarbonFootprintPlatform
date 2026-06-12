@@ -1,17 +1,34 @@
 "use server";
 
+import { z } from "zod";
 import clientPromise from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 import { ObjectId } from "mongodb";
 
-export async function updateStats(simStats: {
-  sustainabilityScore: number;
-  carbonFootprint: number;
-  monthlyTrends: number[];
-  impactMetrics: { label: string; value: string; trend: "up" | "down" }[];
-  twinData: { month: string; actual: number; predicted: number }[];
-}) {
+const statsSchema = z.object({
+  sustainabilityScore: z.number().min(0).max(100),
+  carbonFootprint: z.number().min(0),
+  monthlyTrends: z.array(z.number()),
+  impactMetrics: z.array(z.object({
+    label: z.string(),
+    value: z.string(),
+    trend: z.enum(["up", "down"]),
+  })),
+  twinData: z.array(z.object({
+    month: z.string(),
+    actual: z.number(),
+    predicted: z.number(),
+  })),
+});
+
+export async function updateStats(rawSimStats: unknown) {
+  const parsed = statsSchema.safeParse(rawSimStats);
+  if (!parsed.success) {
+    throw new Error("Invalid stats data: " + parsed.error.message);
+  }
+  const simStats = parsed.data;
+
   const user = await getCurrentUser();
   if (!user) throw new Error("Unauthorized");
 

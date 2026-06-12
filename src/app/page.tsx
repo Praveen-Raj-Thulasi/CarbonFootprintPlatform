@@ -1,10 +1,12 @@
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { Navbar } from "@/components/landing/Navbar";
-import { Hero } from "@/components/landing/Hero";
-import { InteractiveDemo } from "@/components/landing/InteractiveDemo";
-import { Features } from "@/components/landing/Features";
-import { SocialProof } from "@/components/landing/SocialProof";
 import { getPlatformStats } from "@/lib/stats";
+
+const Hero = dynamic(() => import("@/components/landing/Hero").then(mod => mod.Hero));
+const InteractiveDemo = dynamic(() => import("@/components/landing/InteractiveDemo").then(mod => mod.InteractiveDemo));
+const Features = dynamic(() => import("@/components/landing/Features").then(mod => mod.Features));
+const SocialProof = dynamic(() => import("@/components/landing/SocialProof").then(mod => mod.SocialProof));
 
 export default async function Home() {
   const platformStats = await getPlatformStats();

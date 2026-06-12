@@ -1,6 +1,18 @@
 "use server";
 
-export async function chatWithAI(messages: { role: "user" | "model"; content: string }[]) {
+import { z } from "zod";
+
+const messageSchema = z.array(z.object({
+  role: z.enum(["user", "model"]),
+  content: z.string().max(2000), // sanitize input size
+}));
+
+export async function chatWithAI(rawMessages: unknown) {
+  const parsed = messageSchema.safeParse(rawMessages);
+  if (!parsed.success) {
+    throw new Error("Invalid messages data: " + parsed.error.message);
+  }
+  const messages = parsed.data;
   const apiKey = process.env.GROQ_API_KEY;
 
   if (!apiKey) {

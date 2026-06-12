@@ -186,7 +186,7 @@ export default function SimulatorPage() {
                 disabled={loading}
                 size="icon" 
                 aria-label="Apply to Climate Twin"
-                className="w-16 h-16 rounded-full bg-black hover:bg-zinc-800 text-white"
+                className="w-16 h-16 rounded-full bg-black hover:bg-zinc-800 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
               >
                 {loading ? <CheckCircle2 className="w-6 h-6 animate-pulse" /> : <ArrowRight className="w-6 h-6" />}
               </Button>
