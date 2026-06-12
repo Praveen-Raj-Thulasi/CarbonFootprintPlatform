@@ -25,7 +25,7 @@ function checkRateLimit(ip: string): boolean {
 }
 
 export async function proxy(request: NextRequest) {
-  const ip = request.ip || request.headers.get("x-forwarded-for") || "127.0.0.1";
+  const ip = request.headers.get("x-forwarded-for") || "127.0.0.1";
   
   if (!checkRateLimit(ip)) {
     return new NextResponse("Too Many Requests", { status: 429 });

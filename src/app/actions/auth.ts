@@ -20,7 +20,7 @@ export async function registerUser(formData: FormData) {
 
   const parsed = authSchema.safeParse({ email, password });
   if (!parsed.success) {
-    return { error: parsed.error?.errors?.[0]?.message || "Validation failed" };
+    return { error: parsed.error.issues[0]?.message || "Validation failed" };
   }
 
   let success = false;
@@ -64,7 +64,7 @@ export async function loginUser(formData: FormData) {
 
   const parsed = authSchema.safeParse({ email, password });
   if (!parsed.success) {
-    return { error: parsed.error?.errors?.[0]?.message || "Validation failed" };
+    return { error: parsed.error.issues[0]?.message || "Validation failed" };
   }
 
   let success = false;
