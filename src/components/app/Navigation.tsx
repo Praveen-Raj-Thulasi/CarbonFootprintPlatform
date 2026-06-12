@@ -12,6 +12,7 @@ import {
   User,
   LogOut
 } from "lucide-react";
+import { logoutUser } from "@/app/actions/auth";
 
 const navItems = [
   { label: "Overview", href: "/dashboard", icon: LayoutDashboard },
@@ -60,7 +61,7 @@ export function Navigation() {
           <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center overflow-hidden">
              <User className="w-4 h-4 text-slate-400" />
           </div>
-          <button className="text-slate-400 hover:text-red-500 transition-colors">
+          <button onClick={() => logoutUser()} className="text-slate-400 hover:text-red-500 transition-colors">
             <LogOut className="w-4 h-4" />
           </button>
         </div>
